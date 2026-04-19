@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>DANGMINH - LOADER SYSTEM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --primary:#6366f1; --primary2:#a78bfa; --text:#1f1f2e; --bg:linear-gradient(135deg,#dbeafe,#ede9fe,#f0f9ff); --glass:rgba(255,255,255,0.18); --shadow:0 10px 30px rgba(0,0,0,0.15); --radius:22px; }
+body { font-family:'Poppins',sans-serif; background:var(--bg); min-height:100vh; display:flex; align-items:center; justify-content:center; margin:0; padding:20px; }
+.card { width:100%; max-width:400px; padding:40px 30px; background:var(--glass); border-radius:var(--radius); backdrop-filter:blur(18px); box-shadow:var(--shadow); color:var(--text); border:1px solid rgba(255,255,255,0.3); }
+.header {text-align:center;margin-bottom:20px;}
+.header i {font-size:38px;color:var(--primary);}
+.header h1 {margin-top:10px;font-size:22px;font-weight:600;}
+.info {text-align:center;padding:12px;background:rgba(255,255,255,0.3);border-radius:12px;font-size:13px;margin-bottom:20px;}
+.group {margin-bottom:15px}
+.label {font-weight:600;font-size:13px;margin-bottom:6px;display:flex;gap:6px;align-items:center;}
+select, input {width:100%;padding:11px;border-radius:10px;border:none;background:rgba(255,255,255,0.8);font-size:14px;outline:none;}
+button {width:100%;padding:13px;border:none;border-radius:12px;background:linear-gradient(120deg,var(--primary),var(--primary2));color:#fff;font-weight:600;cursor:pointer;margin-top:10px;transition:0.3s;}
+button:hover {transform:scale(1.02);filter:brightness(1.1);}
+.btn-dl { width: 100%; padding: 12px; font-size: 14px; background: #10b981; color: white; text-decoration: none; border-radius: 12px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 20px; transition: 0.3s; font-weight: 500;}
+.btn-dl:hover { background: #059669; transform: translateY(-2px); }
+.popup {position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:99;}
+.popup.active{display:flex}
+.popup-content {background:#fff;padding:30px;border-radius:20px;text-align:center;width:80%;max-width:300px;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <i id="gameIcon" class="fa-solid fa-futbol"></i>
+    <h1 id="gameTitle">LOADER SYSTEM</h1>
+  </div>
+
+  <div class="info">
+    <strong>Thiết bị:</strong> Đã lấy 0 key hôm nay.
+  </div>
+
+  <form method="POST" id="keyForm">
+    <div class="group">
+      <div class="label"><i class="fa-solid fa-gamepad"></i> Chọn Game</div>
+      <select name="game_choice" id="gameChoice">
+          <option value="lolTEAM1" data-icon="fa-clock" data-title="COMING SOON" data-dl="lolTEAM1">FC MOBILE</option>
+          <option value="lolTEAM2" data-icon="fa-gun" data-title="PUBG LITE MOD" data-dl="GET KEY PUBG">PUBG LITE MOD</option>
+          <option value="lolTEAM3" data-icon="fa fa-clock-o" data-title="COMING SOON" data-dl="lolTEAM3">BLOOD STRIKER</option>
+      </select>
+    </div>
+
+    <div class="group">
+        <div class="label"><i class="fa-solid fa-clock"></i> Thời hạn Key</div>
+        <input type="text" value="Time GAY NIGGA" readonly style="background:rgba(255,255,255,0.5); color:#666;">
+    </div>
+
+    <button type="submit" id="genBtn">
+        <i class="fa-solid fa-key"></i> GET KEY
+    </button>
+  </form>
+
+  <a href="https://t.me/kuyraiimoss888" id="dlBtn" class="btn-dl">
+      <i class="fa fa-telegram" aria-hidden="true"></i>
+      <span id="dlText">My TG CH</span>
+  </a>
+
+  <p style="font-size:10px; text-align:center; color:#888; margin-top:15px;">
+    Powered by lolTEAM Security &copy; 2026
+  </p>
+</div>
+
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <i class="fa-solid fa-circle-notch fa-spin" style="font-size:40px; color:var(--primary)"></i>
+    <h3 style="margin-top:15px">Đang tạo link...</h3>
+    <p style="font-size:12px; color:#666">Bypassing via TapLayMa API</p>
+  </div>
+</div>
+
+<script>
+const gameChoice = document.getElementById('gameChoice');
+const gameIcon = document.getElementById('gameIcon');
+const gameTitle = document.getElementById('gameTitle');
+const dlBtn = document.getElementById('dlBtn');
+const dlText = document.getElementById('dlText');
+
+const downloadLinks = {"FCM":"https:\/\/t.me\/ObbVipCheat\/7008","ObbVipCheat":"https:\/\/t.me\/ObbVipCheat","FARLIGHT":"https:\/\/t.me\/ObbVipCheat"};
+
+gameChoice.addEventListener('change', function() {
+    const selected = this.options[this.selectedIndex];
+    gameIcon.className = "fa-solid " + selected.getAttribute('data-icon');
+    gameTitle.innerText = selected.getAttribute('data-title');
+    dlText.innerText = selected.getAttribute('data-dl');
+    dlBtn.href = downloadLinks[this.value];
+});
+
+document.getElementById('keyForm').addEventListener('submit', () => {
+    document.getElementById('popup').classList.add('active');
+    document.getElementById('genBtn').disabled = true;
+    document.getElementById('genBtn').innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+});
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"147bcba4d2494d448a40752c754db128","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
